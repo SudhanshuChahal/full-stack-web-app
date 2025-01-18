@@ -5,16 +5,17 @@ const ContactForm = ({ existingContact ={}, updateCallback}) => {
     const [lastName, setLastName] = useState(existingContact.lastName || '');
     const [email, setEmail] = useState(existingContact.email || '');
 
+
     const updating = Object.entries(existingContact).length !== 0
 
     const onSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         const data = {
             firstName,
             lastName,
             email
-        }
+        };
         const url = "http://127.0.0.1:5000/" + (updating ? `update_contact/${existingContact.id}` : 'create_contact')
         const options = {
             method: updating ? "PATCH" : 'POST',
@@ -23,14 +24,14 @@ const ContactForm = ({ existingContact ={}, updateCallback}) => {
             },
             body: JSON.stringify(data)
         }
-        const response = await fetch(url, options)
+        const response = await fetch(url, options);
         if (response.status !== 201 && response.status !== 200) {
-            const data = await response.json()
-            alert(data.message)
+            const data = await response.json();
+            alert(data.message);
         } else {
-            updateCallback()
+            updateCallback();
         }
-    }
+    };
 
     return (
         <form onSubmit={onSubmit}>
@@ -63,7 +64,7 @@ const ContactForm = ({ existingContact ={}, updateCallback}) => {
             </div>
             <button type="submit">{updating ? "Update" : "Create"}</button>
         </form>
-    )
-}
+    );
+};
 
 export default ContactForm;

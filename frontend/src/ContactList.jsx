@@ -5,7 +5,7 @@ const ContactList = ({ contacts, updateContact, updateCallback }) => {
         try {
             const options = {
                 method: 'DELETE',
-            } 
+            };
             const response = await fetch(`http://127.0.0.1:5000/delete_contact/${id}`, options)
             if (response.status === 200) {
                 updateCallback()
@@ -15,9 +15,10 @@ const ContactList = ({ contacts, updateContact, updateCallback }) => {
         } catch (error) {
             alert(error)
         }
-    }
+    };
 
-    return <div>
+    return(
+         <div>
             <h2>Contacts</h2>
             <table>
                 <thead>
@@ -43,6 +44,9 @@ const ContactList = ({ contacts, updateContact, updateCallback }) => {
                 </tbody>
             </table>
         </div>
+    );
 };
+
+
 
 export default ContactList;
