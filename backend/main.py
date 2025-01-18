@@ -12,9 +12,9 @@ def get_contacts():
 
 @app.route("/create_contact", methods=["POST"])
 def create_contact():
-    first_name = request.json["first_name"]
-    last_name = request.json["last_name"]
-    email = request.json["email"]
+    first_name = request.json.get("first_name")
+    last_name = request.json.get("last_name")
+    email = request.json.get("email")
     
     if not first_name or not last_name or not email:
         return( 
@@ -39,10 +39,10 @@ def update_contact(user_id):
     if not contact:
         return jsonify({"message": "Contact not found"}), 404
     
-    
-    first_name = request.json.get("first_name", contact.first_name)
-    last_name = request.json.get("last_name", contact.last_name)
-    email = request.json.get("email", contact.email)
+    data = request.json
+    contact.first_name = data.get("first_name", contact.first_name)
+    contact.last_name = data.get("last_name", contact.last_name)
+    contact.email = data.get("email", contact.email)
     
     db.session.commit()
         
